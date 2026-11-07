@@ -1,9 +1,12 @@
-name: Android CI
+name: Android CI & Release
 
 on:
   push:
     branches:
       - master
+      - main
+  release:
+    types: [published]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -11,7 +14,7 @@ concurrency:
 
 jobs:
   build:
-    name: Development build
+    name: Build and Sign APK
     runs-on: ubuntu-latest
 
     steps:
@@ -31,20 +34,38 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
+      - name: Decode Keystore and Create keystore.properties
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          # Giải mã file .jks từ Base64 đặt tại thư mục gốc
+          echo "$KEYSTORE_BASE64" | base64 --decode > keystore.jks
+
+          # Tạo file keystore.properties để build.gradle tự động nhận diện và ký APK
+          cat << EOF > keystore.properties
+          storeFile=keystore.jks
+          storePassword=$STORE_PASSWORD
+          keyAlias=$KEY_ALIAS
+          keyPassword=$KEY_PASSWORD
+          EOF
+
       - name: Run unit tests
         run: ./gradlew test --stacktrace
 
-      - name: Build with Gradle
+      - name: Build Release APK (Signed)
         run: ./gradlew assembleRelease --stacktrace
 
-      # - name: Upload APK
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: AdAway-dev
-      #     path: app/build/outputs/apk/release/app-release-unsigned.apk
-      
+      - name: Upload Signed APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AdAway-Signed-Release
+          path: app/build/outputs/apk/release/*.apk
+
       - name: Update dependency graph
-        uses: mikepenz/gradle-dependency-submission@v1.0.0 # Deprecated: need to be changed
+        uses: mikepenz/gradle-dependency-submission@v1.0.0
         with:
           gradle-dependency-path: "app/build.gradle"
           gradle-build-module: ":app"
