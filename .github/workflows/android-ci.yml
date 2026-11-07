@@ -18,23 +18,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
 
-      - name: set up JDK 21
+      - name: Set up JDK 21
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: 21
           cache: 'gradle'
 
+      - name: Install libpcap (Required for Pcap4J / DnsPacketProxyTest)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpcap-dev
+
       - name: Restore SonarCloud packages cache
-        uses: actions/cache@v5
+        uses: actions/cache@v4
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
       - name: Decode Keystore and Create keystore.properties
+        if: ${{ secrets.KEYSTORE_BASE64 != '' }}
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
           STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
@@ -44,7 +50,7 @@ jobs:
           # Giải mã file .jks từ Base64 đặt tại thư mục gốc
           echo "$KEYSTORE_BASE64" | base64 --decode > keystore.jks
 
-          # Tạo file keystore.properties để build.gradle tự động nhận diện và ký APK
+          # Tạo file keystore.properties để build.gradle tự động nhận diện và ký release APK
           cat << EOF > keystore.properties
           storeFile=keystore.jks
           storePassword=$STORE_PASSWORD
@@ -55,13 +61,13 @@ jobs:
       - name: Run unit tests
         run: ./gradlew test --stacktrace
 
-      - name: Build Release APK (Signed)
+      - name: Build Release APK
         run: ./gradlew assembleRelease --stacktrace
 
-      - name: Upload Signed APK Artifact
+      - name: Upload Signed/Release APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: AdAway-Signed-Release
+          name: AdAway-Release-APK
           path: app/build/outputs/apk/release/*.apk
 
       - name: Update dependency graph
