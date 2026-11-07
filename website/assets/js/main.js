@@ -540,7 +540,7 @@
   var apkLinks = document.querySelectorAll('[data-apk]');
 
   if (apkLinks.length && window.fetch) {
-    var API = 'https://api.github.com/repos/soctrungkien/AdAway-Community/releases/latest';
+    var API = 'https://api.github.com/repos/soctrungkien/AdAway-Community-Monet/releases/latest';
     var CACHE_KEY = 'aac.apk';
     var CACHE_MS = 24 * 60 * 60 * 1000;
 
