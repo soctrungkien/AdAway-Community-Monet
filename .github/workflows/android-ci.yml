@@ -70,6 +70,14 @@ jobs:
           name: AdAway-Release-APK
           path: app/build/outputs/apk/release/*.apk
 
+      - name: Create GitHub Release Asset
+        if: github.event_name == 'release' && github.event.action == 'published'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: app/build/outputs/apk/release/*.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Update dependency graph
         uses: mikepenz/gradle-dependency-submission@v1.0.0
         with:
