@@ -124,9 +124,9 @@ public class TvListsActivity extends AppCompatActivity {
         // matching the currently selected tab is actually handed to the (single, shared) adapter.
         // Paging3's own cachedIn(), already applied in ListsViewModel, is what makes re-submitting
         // a previously-collected one safe when the user switches back to a tab.
-        this.viewModel.getBlockedListItems().observe(this, data -> submitIfCurrent(BLOCKED, data));
-        this.viewModel.getAllowedListItems().observe(this, data -> submitIfCurrent(ALLOWED, data));
-        this.viewModel.getRedirectedListItems().observe(this, data -> submitIfCurrent(REDIRECTED, data));
+        this.viewModel.observeBlockedListItems().observe(this, data -> submitIfCurrent(BLOCKED, data));
+        this.viewModel.observeAllowedListItems().observe(this, data -> submitIfCurrent(ALLOWED, data));
+        this.viewModel.observeRedirectedListItems().observe(this, data -> submitIfCurrent(REDIRECTED, data));
 
         // Same prompt-before-apply flow as ListsActivity: adding, editing, toggling or deleting an
         // entry only changes the database; this is what tells the user a change is pending and
@@ -141,7 +141,7 @@ public class TvListsActivity extends AppCompatActivity {
         // Constructed ahead of the click listeners below so applyButton's can call it.
         View contentRoot = findViewById(android.R.id.content);
         ApplyConfigurationSnackbar applySnackbar = new ApplyConfigurationSnackbar(contentRoot, false, false);
-        this.viewModel.getModelChanged().observe(this, applySnackbar.createPendingObserver(() -> {
+        this.viewModel.observeModelChanged().observe(this, applySnackbar.createPendingObserver(() -> {
             applyButton.setVisibility(View.VISIBLE);
             applyHintText.setVisibility(View.VISIBLE);
             toggleSourcesButton.setNextFocusRightId(R.id.tv_lists_apply);
@@ -157,7 +157,10 @@ public class TvListsActivity extends AppCompatActivity {
             applySnackbar.apply();
         });
 
-        int requestedTab = getIntent().getIntExtra(ListsActivity.TAB, ListsActivity.BLOCKED_HOSTS_TAB);
+        int requestedTab = getIntent().getIntExtra(
+                org.adaway.ui.navigation.AdAwayRoute.LIST_TAB_ARGUMENT,
+                org.adaway.ui.navigation.ListsRouteDefaults.BLOCKED_HOSTS_TAB
+        );
         selectTab(tabToType(requestedTab));
     }
 
@@ -180,19 +183,19 @@ public class TvListsActivity extends AppCompatActivity {
     private LiveData<PagingData<HostListItem>> dataForType(ListType type) {
         switch (type) {
             case ALLOWED:
-                return this.viewModel.getAllowedListItems();
+                return this.viewModel.observeAllowedListItems();
             case REDIRECTED:
-                return this.viewModel.getRedirectedListItems();
+                return this.viewModel.observeRedirectedListItems();
             default:
-                return this.viewModel.getBlockedListItems();
+                return this.viewModel.observeBlockedListItems();
         }
     }
 
     private static ListType tabToType(int tab) {
-        if (tab == ListsActivity.ALLOWED_HOSTS_TAB) {
+        if (tab == org.adaway.ui.navigation.ListsRouteDefaults.ALLOWED_HOSTS_TAB) {
             return ALLOWED;
         }
-        if (tab == ListsActivity.REDIRECTED_HOSTS_TAB) {
+        if (tab == org.adaway.ui.navigation.ListsRouteDefaults.REDIRECTED_HOSTS_TAB) {
             return REDIRECTED;
         }
         return BLOCKED;

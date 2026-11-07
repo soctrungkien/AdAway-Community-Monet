@@ -22,7 +22,7 @@ import org.adaway.helper.ThemeHelper;
 import org.adaway.ui.adblocking.ApplyConfigurationSnackbar;
 import org.adaway.ui.source.TvSourceEditActivity;
 
-import static org.adaway.ui.source.SourceEditActivity.SOURCE_ID;
+import static org.adaway.ui.navigation.AdAwayRoute.SOURCE_ID_ARGUMENT;
 
 /**
  * The Android TV screen for the hosts sources, built the same way {@link
@@ -87,12 +87,12 @@ public class TvHostsSourcesActivity extends AppCompatActivity {
         // showing) from a sync the user never asked to apply. See HostsSourcesViewModel.
         View contentRoot = findViewById(android.R.id.content);
         ApplyConfigurationSnackbar applySnackbar = new ApplyConfigurationSnackbar(contentRoot, true, true);
-        this.viewModel.getModelChanged().observe(this, applySnackbar.createPendingObserver(() -> {
+        this.viewModel.observeModelChanged().observe(this, applySnackbar.createPendingObserver(() -> {
             applyButton.setVisibility(View.VISIBLE);
             applyHintText.setVisibility(View.VISIBLE);
             addButton.setNextFocusRightId(R.id.tv_sources_apply);
         }));
-        this.viewModel.getHostsSources().observe(this, sources -> {
+        this.viewModel.observeHostsSources().observe(this, sources -> {
             this.adapter.submitList(sources);
             updateEmptyState(sources.isEmpty());
         });
@@ -132,7 +132,7 @@ public class TvHostsSourcesActivity extends AppCompatActivity {
     private void startSourceEdition(@Nullable HostsSource source) {
         Intent intent = new Intent(this, TvSourceEditActivity.class);
         if (source != null) {
-            intent.putExtra(SOURCE_ID, source.getId());
+            intent.putExtra(SOURCE_ID_ARGUMENT, source.getId());
         }
         this.sourceEditLauncher.launch(intent);
     }

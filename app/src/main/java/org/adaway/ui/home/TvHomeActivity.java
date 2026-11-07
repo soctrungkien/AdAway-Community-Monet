@@ -1,10 +1,10 @@
 package org.adaway.ui.home;
 
 import static org.adaway.model.adblocking.AdBlockMethod.VPN;
-import static org.adaway.ui.lists.ListsActivity.ALLOWED_HOSTS_TAB;
-import static org.adaway.ui.lists.ListsActivity.BLOCKED_HOSTS_TAB;
-import static org.adaway.ui.lists.ListsActivity.REDIRECTED_HOSTS_TAB;
-import static org.adaway.ui.lists.ListsActivity.TAB;
+import static org.adaway.ui.navigation.AdAwayRoute.LIST_TAB_ARGUMENT;
+import static org.adaway.ui.navigation.ListsRouteDefaults.ALLOWED_HOSTS_TAB;
+import static org.adaway.ui.navigation.ListsRouteDefaults.BLOCKED_HOSTS_TAB;
+import static org.adaway.ui.navigation.ListsRouteDefaults.REDIRECTED_HOSTS_TAB;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -149,10 +149,10 @@ public class TvHomeActivity extends AppCompatActivity {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
         homeViewModel.isAdBlocked().observe(this, this::updateStatus);
-        homeViewModel.getState().observe(this, text -> stateDetailText.setText(text));
-        homeViewModel.getPending().observe(this, pending -> progressBar.setVisibility(pending ? View.VISIBLE : View.GONE));
-        homeViewModel.getError().observe(this, this::notifyError);
-        homeViewModel.getAppManifest().observe(this, this::bindAppUpdateBanner);
+        homeViewModel.observeState().observe(this, text -> stateDetailText.setText(text));
+        homeViewModel.observePending().observe(this, pending -> progressBar.setVisibility(pending ? View.VISIBLE : View.GONE));
+        homeViewModel.observeError().observe(this, this::notifyError);
+        homeViewModel.observeAppManifest().observe(this, this::bindAppUpdateBanner);
         bindHostCounter();
         bindSourceCounter();
 
@@ -203,15 +203,15 @@ public class TvHomeActivity extends AppCompatActivity {
         Function1<Integer, CharSequence> stringMapper = count -> Integer.toString(count);
 
         TextView blockedCountTextView = findViewById(R.id.tv_blocked_count);
-        Transformations.map(homeViewModel.getBlockedHostCount(), stringMapper)
+        Transformations.map(homeViewModel.observeBlockedHostCount(), stringMapper)
                 .observe(this, blockedCountTextView::setText);
 
         TextView allowedCountTextView = findViewById(R.id.tv_allowed_count);
-        Transformations.map(homeViewModel.getAllowedHostCount(), stringMapper)
+        Transformations.map(homeViewModel.observeAllowedHostCount(), stringMapper)
                 .observe(this, allowedCountTextView::setText);
 
         TextView redirectCountTextView = findViewById(R.id.tv_redirect_count);
-        Transformations.map(homeViewModel.getRedirectHostCount(), stringMapper)
+        Transformations.map(homeViewModel.observeRedirectHostCount(), stringMapper)
                 .observe(this, redirectCountTextView::setText);
     }
 
@@ -223,12 +223,12 @@ public class TvHomeActivity extends AppCompatActivity {
         Resources resources = getResources();
 
         TextView upToDateSourcesTextView = findViewById(R.id.tv_up_to_date_sources);
-        homeViewModel.getUpToDateSourceCount().observe(this, count ->
+        homeViewModel.observeUpToDateSourceCount().observe(this, count ->
                 upToDateSourcesTextView.setText(resources.getQuantityString(R.plurals.up_to_date_source_label, count, count))
         );
 
         TextView outdatedSourcesTextView = findViewById(R.id.tv_outdated_sources);
-        homeViewModel.getOutdatedSourceCount().observe(this, count ->
+        homeViewModel.observeOutdatedSourceCount().observe(this, count ->
                 outdatedSourcesTextView.setText(resources.getQuantityString(R.plurals.outdated_source_label, count, count))
         );
     }
@@ -277,7 +277,7 @@ public class TvHomeActivity extends AppCompatActivity {
      */
     private void startHostListActivity(int tab) {
         Intent intent = new Intent(this, TvListsActivity.class);
-        intent.putExtra(TAB, tab);
+        intent.putExtra(LIST_TAB_ARGUMENT, tab);
         startActivity(intent);
     }
 

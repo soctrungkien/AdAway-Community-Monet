@@ -97,9 +97,9 @@ public class TvWelcomeActivity extends AppCompatActivity {
         if (this.homeViewModel == null) {
             PreferenceHelper.setAbBlockMethod(this, method);
             this.homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-            this.homeViewModel.getState().observe(this, state -> this.progressDetailText.setText(state));
-            this.homeViewModel.getError().observe(this, this::showError);
-            this.homeViewModel.isEnableCompleted().observe(this, completed -> {
+            this.homeViewModel.observeState().observe(this, state -> this.progressDetailText.setText(state));
+            this.homeViewModel.observeError().observe(this, this::showError);
+            this.homeViewModel.observeEnableCompleted().observe(this, completed -> {
                 Timber.d("TvWelcomeActivity: enableCompleted=%s.", completed);
                 if (completed) {
                     showSuccess();

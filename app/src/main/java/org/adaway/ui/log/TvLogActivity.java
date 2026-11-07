@@ -67,7 +67,7 @@ public class TvLogActivity extends AppCompatActivity {
         logList.setLayoutManager(new LinearLayoutManager(this));
         logList.setAdapter(adapter);
 
-        mViewModel.getLogs().observe(this, logEntries -> {
+        mViewModel.observeLogs().observe(this, logEntries -> {
             if (logEntries.isEmpty()) {
                 showView(emptyTextView);
             } else {
@@ -76,7 +76,7 @@ public class TvLogActivity extends AppCompatActivity {
             adapter.submitList(logEntries);
         });
 
-        mViewModel.isRecording().observe(this, recording -> {
+        mViewModel.observeRecording().observe(this, recording -> {
             isRecordingLogs = recording;
             // If VPN becomes inactive while recording, stop recording.
             if (vpnStatusInitialized && !vpnIsActive && isRecordingLogs) {
@@ -88,7 +88,7 @@ public class TvLogActivity extends AppCompatActivity {
             }
         });
 
-        mViewModel.getVpnStatus().observe(this, vpnActive -> {
+        mViewModel.observeVpnStatus().observe(this, vpnActive -> {
             vpnIsActive = vpnActive;
             vpnStatusInitialized = true;
             // If VPN becomes inactive while recording, stop recording.

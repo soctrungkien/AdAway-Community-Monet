@@ -46,8 +46,6 @@
     <!-- Project card -->
     <string name="project_label">Open GitHub page</string>
 
-    <!-- Support card -->
-
     <!-- About tab -->
     <string name="help_tab_about">About</string>
     <string name="about_app_name">AdAway Community</string>

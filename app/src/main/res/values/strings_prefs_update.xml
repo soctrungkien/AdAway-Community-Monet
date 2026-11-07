@@ -7,6 +7,7 @@
     <string name="pref_update_app_category">Application updates</string>
     <string name="pref_update_check_app_startup">Check for update at startup</string>
     <string name="pref_update_check_app_daily">Periodically check for update</string>
+    <string name="pref_update_include_beta_releases">Include beta releases</string>
     <string name="pref_update_check_now">Check now</string>
     <string name="pref_update_check_now_update_available">New version available: %1$s</string>
     <string name="pref_update_check_now_up_to_date">No update available</string>

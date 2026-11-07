@@ -2,6 +2,8 @@
 <resources>
     <string name="pref_dark_theme_mode_key" translatable="false">darkThemeMode</string>
     <string name="pref_dark_theme_mode_def">MODE_NIGHT_FOLLOW_SYSTEM</string>
+    <string name="pref_dynamic_color_key" translatable="false">dynamicColor</string>
+    <bool name="pref_dynamic_color_def">true</bool>
     <string-array name="pref_dark_theme_mode_entry_values" translatable="false">
         <item>MODE_NIGHT_NO</item>
         <item>MODE_NIGHT_YES</item>
@@ -18,6 +20,8 @@
     <string name="pref_update_open_notification_preferences_key" translatable="false">openNotificationPreferences</string>
     <string name="pref_update_check_app_daily_key" translatable="false">updateCheckAppDaily</string>
     <bool name="pref_update_check_app_daily_def">true</bool>
+    <string name="pref_update_include_beta_releases_key" translatable="false">includeBetaReleases</string>
+    <bool name="pref_update_include_beta_releases_def">false</bool>
     <string name="pref_update_check_now_key" translatable="false">updateCheckNow</string>
     <string name="pref_update_install_key" translatable="false">updateInstallNow</string>
     <string name="pref_update_check_hosts_daily_key" translatable="false">updateCheckHostsDaily</string>

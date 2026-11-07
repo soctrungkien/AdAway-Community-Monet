@@ -35,7 +35,7 @@ import static org.adaway.ui.Animations.hideView;
 import static org.adaway.ui.Animations.setHidden;
 import static org.adaway.ui.Animations.setShown;
 import static org.adaway.ui.Animations.showView;
-import static org.adaway.ui.source.SourceEditActivity.SOURCE_ID;
+import static org.adaway.ui.navigation.AdAwayRoute.SOURCE_ID_ARGUMENT;
 
 /**
  * This is the Android TV activity to create, edit and delete a hosts source.
@@ -125,7 +125,7 @@ public class TvSourceEditActivity extends AppCompatActivity {
 
     private void checkInitialValueFromIntent() {
         Intent intent = getIntent();
-        int sourceId = intent.getIntExtra(SOURCE_ID, -1);
+        int sourceId = intent.getIntExtra(SOURCE_ID_ARGUMENT, -1);
         this.editing = sourceId != -1;
         if (this.editing) {
             this.deleteButton.setVisibility(VISIBLE);
