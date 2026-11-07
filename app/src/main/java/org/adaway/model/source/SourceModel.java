@@ -168,8 +168,10 @@ public class SourceModel {
             // Some help with debug here
             Timber.d("lastModifiedLocal: %s", dateToString(lastModifiedLocal));
             Timber.d("lastModifiedOnline: %s", dateToString(lastModifiedOnline));
-            // Save last modified online
-            this.hostsSourceDao.updateOnlineModificationDate(source.getId(), lastModifiedOnline);
+            // Save last modified online (only when retrieved; null means "unknown")
+            if (lastModifiedOnline != null) {
+                this.hostsSourceDao.updateOnlineModificationDate(source.getId(), lastModifiedOnline);
+            }
             // Check if last modified online retrieved
             if (lastModifiedOnline == null) {
                 // If not, consider update is available if install is older than a week
