@@ -40,23 +40,27 @@ jobs:
           restore-keys: ${{ runner.os }}-sonar
 
       - name: Decode Keystore and Create keystore.properties
-        if: ${{ secrets.KEYSTORE_BASE64 != '' }}
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
           STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
-          # Giải mã file .jks từ Base64 đặt tại thư mục gốc
-          echo "$KEYSTORE_BASE64" | base64 --decode > keystore.jks
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            echo "Found Keystore secret. Decoding and signing will be enabled."
+            # Giải mã file .jks từ Base64 đặt tại thư mục gốc
+            echo "$KEYSTORE_BASE64" | base64 --decode > keystore.jks
 
-          # Tạo file keystore.properties để build.gradle tự động nhận diện và ký release APK
-          cat << EOF > keystore.properties
-          storeFile=keystore.jks
-          storePassword=$STORE_PASSWORD
-          keyAlias=$KEY_ALIAS
-          keyPassword=$KEY_PASSWORD
-          EOF
+            # Tạo file keystore.properties để build.gradle tự động nhận diện và ký release APK
+            cat << EOF > keystore.properties
+            storeFile=keystore.jks
+            storePassword=$STORE_PASSWORD
+            keyAlias=$KEY_ALIAS
+            keyPassword=$KEY_PASSWORD
+            EOF
+          else
+            echo "Keystore secret not found. Skipping signing (building unsigned/default)."
+          fi
 
       - name: Run unit tests
         run: ./gradlew test --stacktrace
