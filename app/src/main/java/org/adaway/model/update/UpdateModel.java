@@ -116,13 +116,17 @@ public class UpdateModel {
      * Fetch the latest release and publish the resulting manifest. Safe to call from
      * any background thread.
      */
-    public void checkForUpdate() {
-        Manifest fetched = downloadManifest();
-        if (fetched != null) {
-            this.manifest.postValue(fetched);
-        }
-    }
-
+     public void checkForUpdate() {
+         try {
+             Manifest fetched = downloadManifest();
+             if (fetched != null) {
+                 this.manifest.postValue(fetched);
+             }
+         } catch (RuntimeException e) {
+             // Tạm thời: không để lỗi lạ khi kiểm tra bản cập nhật app làm sập tiến trình.
+             Timber.w(e, "Failed to check for app update.");
+         }
+     }
     /**
      * Fetch the latest release, publish the manifest, and return it directly.
      * Safe to call from any background thread.
