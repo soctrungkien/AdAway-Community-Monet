@@ -86,6 +86,10 @@ android {
     lint {
         disable 'MissingTranslation'
     }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 // Match the filename convention already used for published GitHub releases
