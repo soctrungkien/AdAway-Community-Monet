@@ -40,23 +40,21 @@ jobs:
           restore-keys: ${{ runner.os }}-sonar
 
       - name: Decode Keystore and Create keystore.properties
-        env:
-          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
-          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: |
-          if [ -n "$KEYSTORE_BASE64" ]; then
-            echo "Found Keystore secret. Decoding and signing will be enabled."
-            # Giải mã file .jks từ Base64 đặt tại thư mục gốc
-            echo "$KEYSTORE_BASE64" | base64 --decode > keystore.jks
+          env:
+            KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+            STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+            KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+            KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          run: |
+            if [ -n "$KEYSTORE_BASE64" ]; then
+              echo "Found Keystore secret. Decoding and signing will be enabled."
+              echo "$KEYSTORE_BASE64" | base64 --decode > app/keystore.jks
 
-            # Tạo file keystore.properties an toàn bằng printf
-            printf "storeFile=keystore.jks\nstorePassword=%s\nkeyAlias=%s\nkeyPassword=%s\n" \
-              "$STORE_PASSWORD" "$KEY_ALIAS" "$KEY_PASSWORD" > keystore.properties
-          else
-            echo "Keystore secret not found. Skipping signing (building unsigned/default)."
-          fi
+              printf "storeFile=keystore.jks\nstorePassword=%s\nkeyAlias=%s\nkeyPassword=%s\n" \
+                "$STORE_PASSWORD" "$KEY_ALIAS" "$KEY_PASSWORD" > keystore.properties
+            else
+              echo "Keystore secret not found. Skipping signing."
+            fi
 
       - name: Run unit tests
         run: ./gradlew test --stacktrace
