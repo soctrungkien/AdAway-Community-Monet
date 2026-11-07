@@ -123,6 +123,9 @@
     'foot.contribute': 'Contribute',
     'foot.upstream': 'Upstream',
     'foot.official': 'Official AdAway',
+    'foot.credits': 'Credits',
+    'foot.forkOrigin': 'Fork origin',
+    'foot.monetUi': 'Monet UI source',
     'foot.license': 'Licensed under the GPLv3+, like the original AdAway. Created and maintained by the AdAway project contributors; this fork is not affiliated with or endorsed by them.'
   };
 
@@ -537,7 +540,7 @@
   var apkLinks = document.querySelectorAll('[data-apk]');
 
   if (apkLinks.length && window.fetch) {
-    var API = 'https://api.github.com/repos/Victor-root/AdAway-Community/releases/latest';
+    var API = 'https://api.github.com/repos/soctrungkien/AdAway-Community/releases/latest';
     var CACHE_KEY = 'aac.apk';
     var CACHE_MS = 24 * 60 * 60 * 1000;
 

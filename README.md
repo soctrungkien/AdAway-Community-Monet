@@ -1,7 +1,7 @@
 > [!IMPORTANT]
 > **AdAway 7 Alpha is out: pull requests are open again**
 >
-> AdAway has been fully rewritten in Kotlin and Rust, and version 7 is now available as a pre-release in [Releases](https://github.com/Victor-root/AdAway-Community/releases).
+> AdAway has been fully rewritten in Kotlin and Rust, and version 7 is now available as a pre-release in [Releases](https://github.com/soctrungkien/AdAway-Community/releases).
 >
 > **Testers are very welcome!** It is an alpha, so expect bugs: please report what you find in the issues, with your device and Android version.
 >
@@ -12,19 +12,21 @@
 # ![AdAway logo](app/src/main/res/mipmap-mdpi/icon.png) AdAway Community
 <div align="center">
 
-[![Latest release](https://img.shields.io/github/v/release/Victor-root/AdAway-Community?style=for-the-badge&logo=github&label=release)](https://github.com/Victor-root/AdAway-Community/releases)
-[![Downloads](https://img.shields.io/github/downloads/Victor-root/AdAway-Community/total?style=for-the-badge&logo=github&label=downloads)](https://github.com/Victor-root/AdAway-Community/releases)
-[![Last update](https://img.shields.io/github/last-commit/Victor-root/AdAway-Community/main?style=for-the-badge&logo=git&label=last%20update)](https://github.com/Victor-root/AdAway-Community/commits/main)
+[![Latest release](https://img.shields.io/github/v/release/soctrungkien/AdAway-Community?style=for-the-badge&logo=github&label=release)](https://github.com/soctrungkien/AdAway-Community/releases)
+[![Downloads](https://img.shields.io/github/downloads/soctrungkien/AdAway-Community/total?style=for-the-badge&logo=github&label=downloads)](https://github.com/soctrungkien/AdAway-Community/releases)
+[![Last update](https://img.shields.io/github/last-commit/soctrungkien/AdAway-Community/main?style=for-the-badge&logo=git&label=last%20update)](https://github.com/soctrungkien/AdAway-Community/commits/main)
 
-[![Unofficial fork](https://img.shields.io/badge/Unofficial-community%20fork-f59e0b?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Victor-root/AdAway-Community)
-[![Android APK](https://img.shields.io/badge/Android-APK-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://github.com/Victor-root/AdAway-Community/releases)
-[![Android TV](https://img.shields.io/badge/Android%20TV-supported-3DDC84?style=for-the-badge&logo=androidtv&logoColor=white)](https://github.com/Victor-root/AdAway-Community#android-tv-support)
-[![VPN stability](https://img.shields.io/badge/VPN-stability%20fixes-2563eb?style=for-the-badge&logo=wireguard&logoColor=white)](https://github.com/Victor-root/AdAway-Community#mobile--vpn-stability)
+[![Unofficial fork](https://img.shields.io/badge/Unofficial-community%20fork-f59e0b?style=for-the-badge&logo=github&logoColor=white)](https://github.com/soctrungkien/AdAway-Community)
+[![Android APK](https://img.shields.io/badge/Android-APK-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://github.com/soctrungkien/AdAway-Community/releases)
+[![Android TV](https://img.shields.io/badge/Android%20TV-supported-3DDC84?style=for-the-badge&logo=androidtv&logoColor=white)](https://github.com/soctrungkien/AdAway-Community#android-tv-support)
+[![VPN stability](https://img.shields.io/badge/VPN-stability%20fixes-2563eb?style=for-the-badge&logo=wireguard&logoColor=white)](https://github.com/soctrungkien/AdAway-Community#mobile--vpn-stability)
 
 
 </div>
 
 AdAway Community is an unofficial fork of [AdAway](https://github.com/AdAway/AdAway), an open source ad blocker for Android using hosts sources and a local VPN / root-based blocking depending on the selected mode.
+
+It is forked from [Victor-root/AdAway-Community](https://github.com/Victor-root/AdAway-Community), and its Material 3 Expressive / Monet interface is ported from [Anto426/AdAway-but-Monet](https://github.com/Anto426/AdAway-but-Monet).
 
 This fork is **not affiliated with, endorsed by, or signed by** the official AdAway maintainers.
 
@@ -53,7 +55,7 @@ This fork is **not affiliated with, endorsed by, or signed by** the official AdA
 ## 📥 Download and updates
 
 <p align="center">
-  <a href="https://victor-root.github.io/Omnify/add.html?url=https%3A%2F%2Fgithub.com%2FVictor-root%2FAdAway-Community"><img src="https://victor-root.github.io/Omnify/assets/get-it-on-omnify.svg" alt="Get it on Omnify"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/Victor-root/AdAway-Community/releases"><img src="docs/badges/get-it-on-github.svg" alt="Get it on GitHub"/></a>
+  <a href="https://soctrungkien.github.io/Omnify/add.html?url=https%3A%2F%2Fgithub.com%2Fsoctrungkien%2FAdAway-Community"><img src="https://soctrungkien.github.io/Omnify/assets/get-it-on-omnify.svg" alt="Get it on Omnify"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/soctrungkien/AdAway-Community/releases"><img src="docs/badges/get-it-on-github.svg" alt="Get it on GitHub"/></a>
 </p>
 
 ---
@@ -286,6 +288,11 @@ AdAway was created and maintained by the official AdAway project contributors.
 
 Official project:
 https://github.com/AdAway/AdAway | Official website: https://adaway.org
+
+This fork is based on:
+
+- [Victor-root/AdAway-Community](https://github.com/Victor-root/AdAway-Community) — the community fork this project was forked from;
+- [Anto426/AdAway-but-Monet](https://github.com/Anto426/AdAway-but-Monet) — the source of the Material 3 Expressive / Monet UI ported into this fork.
 
 Thanks to the original author, past maintainers, current maintainers, translators, hosts list maintainers and all contributors who made AdAway possible.
 

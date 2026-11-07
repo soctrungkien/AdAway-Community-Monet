@@ -38,7 +38,7 @@ import timber.log.Timber;
 public class UpdateModel {
     /** GitHub REST API endpoint for the latest release of the fork. */
     private static final String LATEST_RELEASE_URL =
-            "https://api.github.com/repos/Victor-root/AdAway-Community/releases/latest";
+            "https://api.github.com/repos/soctrungkien/AdAway-Community/releases/latest";
     /** File name of the downloaded APK in the app's external cache dir. */
     public static final String APK_FILE_NAME = "adaway-community-update.apk";
     /**

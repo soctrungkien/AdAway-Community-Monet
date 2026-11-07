@@ -55,6 +55,8 @@
     <string name="about_issues_label">Report an issue</string>
     <string name="about_releases_label">Releases</string>
     <string name="about_upstream_label">Official AdAway upstream</string>
+    <string name="about_forked_from_label">Forked from Victor-root/AdAway-Community</string>
+    <string name="about_monet_ui_label">Monet UI from Anto426/AdAway-but-Monet</string>
     <string name="about_license_label">License: GNU General Public License v3.0 or later (GPLv3+)</string>
 
     <!-- App bar drawer -->

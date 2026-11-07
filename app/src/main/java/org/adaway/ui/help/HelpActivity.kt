@@ -245,16 +245,22 @@ private fun AboutView(
         )
         HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))
         AboutLink(R.string.about_source_label) {
-            uriHandler.openUri("https://github.com/Victor-root/AdAway-Community")
+            uriHandler.openUri("https://github.com/soctrungkien/AdAway-Community")
         }
         AboutLink(R.string.about_issues_label) {
-            uriHandler.openUri("https://github.com/Victor-root/AdAway-Community/issues")
+            uriHandler.openUri("https://github.com/soctrungkien/AdAway-Community/issues")
         }
         AboutLink(R.string.about_releases_label) {
-            uriHandler.openUri("https://github.com/Victor-root/AdAway-Community/releases")
+            uriHandler.openUri("https://github.com/soctrungkien/AdAway-Community/releases")
         }
         AboutLink(R.string.about_upstream_label) {
             uriHandler.openUri("https://github.com/AdAway/AdAway")
+        }
+        AboutLink(R.string.about_forked_from_label) {
+            uriHandler.openUri("https://github.com/Victor-root/AdAway-Community")
+        }
+        AboutLink(R.string.about_monet_ui_label) {
+            uriHandler.openUri("https://github.com/Anto426/AdAway-but-Monet")
         }
         HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))
         Text(
