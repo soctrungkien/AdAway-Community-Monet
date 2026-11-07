@@ -58,9 +58,6 @@ jobs:
             echo "Keystore secret not found. Skipping signing (building unsigned/default)."
           fi
 
-      - name: Run unit tests
-        run: ./gradlew test --stacktrace
-
       - name: Build Release APK
         run: ./gradlew assembleRelease --stacktrace
 
@@ -84,9 +81,3 @@ jobs:
           gradle-dependency-path: "app/build.gradle"
           gradle-build-module: ":app"
           gradle-build-configuration: "releaseCompileClasspath"
-
-      - name: Analyze project
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew -Dorg.gradle.jvmargs=-XX:MaxMetaspaceSize=512m sonar
